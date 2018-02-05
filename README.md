@@ -22,8 +22,8 @@ Settings
 ```
 
 Install Meteor-UP (MUP)
-[Meteor-UP DOC](http://meteor-up.com/docs.html)
 --
+[Meteor-UP DOC](http://meteor-up.com/docs.html)
 ```sh
 npm install mup -g
 git clone https://github.com/coinddev/excoin.git
