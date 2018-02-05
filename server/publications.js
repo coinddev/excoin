@@ -1,5 +1,9 @@
 Meteor.publish('confirmation', function() {
-  return Blocks.find();
+  return Blocks.find({}, {limit: 1, sort: {height: -1}});
+});
+
+Meteor.publish('carts', function() {
+  return Blocks.find({}, {limit: 100, sort: {height: -1}});
 });
 
 Meteor.publish('transactionvout', function() {
@@ -11,15 +15,15 @@ Meteor.publish('transactionvin', function() {
 });
 
 Meteor.publish('blocks', function() {
-  return Blocks.find();
+  return Blocks.find({}, {limit: 100, sort: {height: -1}});
 });
 
 Meteor.publish('txs', function() {
-  return Txs.find();
+  return Txs.find({}, {limit: 100, sort: {confirmation: 1}});
 });
 
 Meteor.publish('diff', function() {
-  return Blocks.find();
+  return Blocks.find({}, {limit: 1, sort: {height: -1}});
 });
 
 Meteor.publish('masternode', function() {

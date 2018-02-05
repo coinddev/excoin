@@ -3,6 +3,11 @@ div.fix-block {
   overflow: auto;
 }
 
+div.war {
+  min-height: 300px;
+  margin-top: 100px;
+}
+
 #chartdiv {
   width: 100%;
   min-height: 300px;

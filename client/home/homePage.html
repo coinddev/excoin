@@ -1,7 +1,9 @@
 <template name="homePage">
   <div class="col-md-12">
     <h3>Chart Difficulty</h3>
-    {{> chartTpl}}
+    {{#with chart}}
+      {{> chartTpl}}
+    {{/with}}
   </div>
   <div class="col-md-12">
     <h3>Latest Blocks</h3>

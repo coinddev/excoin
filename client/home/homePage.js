@@ -4,6 +4,9 @@ Template.homePage.helpers({
   },
   txs: function() {
     return Txs.find({}, {limit: 10, sort: {time: -1}});
+  },
+  chart: function() {
+    return Blocks.find();
   }
 });
 
