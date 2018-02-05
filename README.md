@@ -1,4 +1,4 @@
-# EXcoin - Altcoin BlocExplorer v.0.1.0
+# EXcoin - Altcoin BlocExplorer v.0.1.1-demo
 
 Settings
 --
