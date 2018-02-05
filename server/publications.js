@@ -32,3 +32,10 @@ Meteor.publish('masternode', function() {
 Meteor.publish('network', function() {
   return Settings.find();
 });
+
+Meteor.publish('peers', function() {
+  return Peers.find();
+});
+Meteor.publish('peersAddnode', function() {
+  return Peers.find();
+});

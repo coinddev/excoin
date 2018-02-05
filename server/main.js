@@ -12,8 +12,6 @@ Meteor.startup(() => {
           if(err) {
             console.log(err);
           } else {
-
-            //console.log('### SaveBlock:', index);
             var block = {
               hash: res.result.hash,
               confirmations: res.result.confirmations,
@@ -29,8 +27,6 @@ Meteor.startup(() => {
               nextblockhash: res.result.nextblockhash
             };
 
-            //console.log('data', block);
-
             Blocks.insert(block);
 
             if(res.result.tx) {
@@ -40,32 +36,20 @@ Meteor.startup(() => {
                   txid: obj,
                   block: res.result.hash,
                   confirmations: res.result.confirmations
-                }
-                //console.log('### SaveTx:', obj);
+                };
 
                 Meteor.call('get_rcpcoin_params', 'getrawtransaction', obj, function(err, res){
                   if(err)
                     console.log(err);
-                  //console.log('### GetRawTx');
                   Meteor.call('get_rcpcoin_params', 'decoderawtransaction', res.result, function(err, res){
                     if(err)
                       console.log(err);
-                    //console.log('### decoderawtransaction');
-                    //console.log(res.result);
-
                     var vin = res.result.vin;
                     var vout = res.result.vout;
                     var amount = 0;
-
-                    //console.log('### vin');
-                    //console.log(res.result.vin);
-
-                    //console.log('### vout');
-                    //console.log(res.result.vout);
                     vout.forEach(function(obj){
                       amount = amount + obj.value;
                     });
-
                     var txData = _.extend(tx, {
                       time: block.time,
                       version: res.result.version,
@@ -74,11 +58,7 @@ Meteor.startup(() => {
                       vin: res.result.vin,
                       vout: res.result.vout
                     });
-
-
-                    //console.log(txData);
                     Txs.insert(txData);
-
                   });
                 });
               });
@@ -144,8 +124,29 @@ Meteor.startup(() => {
   }
 
 
+  peerinfo = function() {
+    Meteor.call('get_rcpcoin', 'getpeerinfo', function(err, res){
+      if(err) {
+        console.log(err);
+      return;
+      } else {
+        console.log(res);
+        //data.master = res.result;
+        var data = {
+          peers: res.result
+        };
 
+        if(Peers.find().count() == 0) {
+          Peers.insert(data);
+        } else {
+          var set = Peers.findOne();
+          Peers.update(set._id, {$set: data});
+        }
+      }
+    });
+  };
 
+  peerinfo();
   //loading();
   //donwload_block(111);
   Meteor.setInterval(function(){

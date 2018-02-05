@@ -1,0 +1,45 @@
+<template name="peersPage">
+  <div class="row">
+    <div class="col-md-12">
+      <h3>Node peers</h3>
+    </div>
+    <div class="col-md-12">
+      <table class="table">
+        <thead>
+          <tr>
+            <th>ID</th>
+            <th>IP</th>
+            <th>Core</th>
+            <th>Version</th>
+          </tr>
+        </thead>
+        <tbody>
+          {{#each peers}}
+            {{>peersTr}}
+          {{/each}}
+        </tbody>
+      </table>
+    </div>
+    <div class="col-md-12">
+      <div class="panel panel-default">
+        <div class="panel-heading">addnode</div>
+        <div class="panel-body">
+          <pre>{{#each peersAddnode}}
+  {{>peersNode}}
+{{/each}}</pre>
+        </div>
+      </div>
+    </div>
+  </div>
+</template>
+<template name="peersTr">
+  <tr>
+    <td>{{id}}</td>
+    <td>{{addrlocal}}</td>
+    <td>{{subver}}</td>
+    <td>{{version}}</td>
+  </tr>
+</template>
+<template name="peersNode">
+addnode={{addrlocal}}
+</template>
