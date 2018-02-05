@@ -1,0 +1,25 @@
+<template name="txPage">
+  <div class="row">
+    <div class="col-md-12">
+      <div class="header-tx">
+        <h3>Transaction <small>{{txid}}</small></h3>
+        <div class="panel panel-default">
+          <div class="panel-heading">
+            <h3 class="panel-title">Symmary</h3>
+          </div>
+          <div class="panel-body">
+            <ul class="list-unstyled">
+              <li><strong>Time:</strong> {{timer}}</li>
+              <li><strong>Block:</strong> <a href="/block/{{block}}">{{block}}</a></li>
+            </ul>
+          </div>
+        </div>
+      </div>
+      <div class="tx-body">
+        {{#each transaction}}
+          {{>tx}}
+        {{/each}}
+      </div>
+    </div>
+  </div>
+</template>

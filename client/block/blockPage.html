@@ -1,0 +1,19 @@
+<template name="blockPage">
+  <div class="row">
+    <div class="col-md-12">
+      <h3>Block: <small>{{hash}}</small> </h3>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-md-12">
+      <h3>List transaction</h3>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-md-12">
+      {{#each transaction}}
+        {{>tx}}
+      {{/each}}
+    </div>
+  </div>
+</template>

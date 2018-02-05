@@ -1,0 +1,54 @@
+<template name="homePage">
+  <div class="col-md-12">
+    <h3>Chart Difficulty</h3>
+    {{> chartTpl}}
+  </div>
+  <div class="col-md-12">
+    <h3>Latest Blocks</h3>
+    <table class="table table-striped">
+      <thead>
+        <tr>
+          <th>Height</th>
+          <th>Hash</th>
+          <th>Time</th>
+        </tr>
+      </thead>
+      <tbody class="blocks-list">
+        {{#each blocks}}
+          {{>trBlocks}}
+        {{/each}}
+      </tbody>
+    </table>
+  </div>
+  <div class="col-md-12">
+    <h3>Latest Transaction</h3>
+    <table class="table table-striped fix-block">
+      <thead>
+        <tr>
+          <th>Hash</th>
+          <th>Value Out</th>
+        </tr>
+      </thead>
+      <tbody class="tx-list">
+        {{#each txs}}
+          {{>txTable}}
+        {{/each}}
+      </tbody>
+    </table>
+  </div>
+</template>
+
+<template name="trBlocks">
+  <tr class="anim1">
+    <td>{{height}}</td>
+    <td><a href="/block/{{hash}}">{{hash}}</a></td>
+    <td>{{date}}</td>
+  </tr>
+</template>
+
+<template name="txTable">
+  <tr class="anim2">
+    <td><a href="/tx/{{txid}}">{{txid}}</a></td>
+    <td>{{amount}} {{ticker}}</td>
+  </tr>
+</template>

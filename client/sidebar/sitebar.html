@@ -1,0 +1,25 @@
+<template name="sidebar">
+  <div class="coininfo">
+    <h4>Coin info</h4>
+    <ul class="list-unstyled">
+      <li>Blocks: <span class="label label-primary">{{height}}</span></li>
+      <li><strong>Algo:</strong></li>
+      <li>{{algo}}</li>
+      <li><strong>Difficulty:</strong></li>
+      <li>PoW: {{difficulty}} </li>
+      <li><strong>Network:</strong></li>
+      <li>{{networks}}</li>
+      {{#if masternodes}}
+      <li><strong>MasterNode:</strong> </li>
+      <li>{{masternode}}</li>
+      {{/if}}
+    </ul>
+  </div>
+  <div class="coininfo">
+    <h4>Rigs</h4>
+    <ul class="list-unstyled">
+      <li><strong>Mining</strong></li>
+      <li><a href="https://www.miningrigrentals.com/?ref=36313" target="_blank">MiningRigRentals</a></li>
+    </ul>
+  </div>
+</template>
