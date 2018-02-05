@@ -2,6 +2,24 @@
   <div class="row">
     <div class="col-md-12">
       <h3>Block: <small>{{hash}}</small> </h3>
+      <div class="panel panel-default">
+        <div class="panel-heading">
+          <h3 class="panel-title">Symmary</h3>
+        </div>
+        <div class="panel-body">
+          <ul class="list-unstyled">
+            <li><strong>Time:</strong> {{timer}}</li>
+            <li><strong>Confirmations:</strong> {{confirmations}}</li>
+            <li><strong>Size:</strong> {{size}}</li>
+            <li><strong>Height:</strong> {{height}}</li>
+            <li><strong>Merkleroot:</strong> {{merkleroot}}</li>
+            <li><strong>Nonce:</strong> {{nonce}}</li>
+            <li><strong>Bits:</strong> {{bits}}</li>
+            <li><strong>Difficulty:</strong> {{difficulty}}</li>
+            <li><strong>Nextblockhash:</strong> <a href="/block/{{nextblockhash}}">{{nextblockhash}}</a> </li>
+          </ul>
+        </div>
+      </div>
     </div>
   </div>
   <div class="row">
