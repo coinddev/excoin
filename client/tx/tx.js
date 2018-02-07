@@ -2,11 +2,7 @@ Template.tx.helpers({
   transactionvin: function() {
     var vout_arr = [];
     var out = this.vout;
-    //console.log('## OUT ##');
-    //console.log(out);
     out.forEach(function(obj){
-      //console.log(obj);
-      //vout_arr.push({address: obj.scriptPubKey.addresses[0], amount: obj.value, n: obj.n});
       if(obj.scriptPubKey.type != 'nonstandard' && obj.scriptPubKey.type != 'nulldata') {
         vout_arr.push({
           address: obj.scriptPubKey.addresses[0],

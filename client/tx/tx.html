@@ -1,5 +1,8 @@
 <template name="tx">
   <div class="row">
+    <div class="col-md-12">
+      <h4>Txid: {{txid}}</h4>
+    </div>
     <div class="col-md-6">
       {{#each transactionvout}}
       <div class="row">
@@ -24,7 +27,7 @@
         <div class="col-md-12">
           <div class="panel panel-success">
             <div class="panel-heading">
-              <h3 class="panel-title">{{address}}</h3>
+              <a class="panel-title" href="/address/{{address}}">{{address}}</a>
             </div>
             <div class="panel-body">
               <ul class="list-unstyled">

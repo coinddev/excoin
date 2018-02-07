@@ -1,9 +1,10 @@
 import { Meteor } from 'meteor/meteor';
 
+var time = Meteor.settings.public.updatetime;
 
 Meteor.startup(() => {
 
-  //download index block
+  //download block & tx
   donwload_block = function(index) {
     Meteor.call('get_rcpcoin_params', 'getblockhash', index, function(err, res){
       if(err)
@@ -47,9 +48,30 @@ Meteor.startup(() => {
                     var vin = res.result.vin;
                     var vout = res.result.vout;
                     var amount = 0;
+
                     vout.forEach(function(obj){
                       amount = amount + obj.value;
+                      //console.log();
+
+                      var adr = obj.scriptPubKey.addresses;
+                      adr.forEach(function(d) {
+                        if(Addresses.findOne({addres: d})){
+                          //console.log('update addrress:', d);
+                          var ax = Addresses.findOne({addres: d});
+                          var tx = ax.tx;
+                          tx.push(res.result.txid);
+                          Addresses.update(ax._id, {$set: {tx: tx}});
+                        } else {
+                          //console.log('new addrress:', d);
+                          var data = {
+                            addres: d,
+                            tx: [res.result.txid]
+                          };
+                          Addresses.insert(data);
+                        }
+                      });
                     });
+                    
                     var txData = _.extend(tx, {
                       time: block.time,
                       version: res.result.version,
@@ -58,6 +80,7 @@ Meteor.startup(() => {
                       vin: res.result.vin,
                       vout: res.result.vout
                     });
+
                     Txs.insert(txData);
                   });
                 });
@@ -67,6 +90,7 @@ Meteor.startup(() => {
         });
     });
   };
+
   //settings
   infoCoin = function() {
     var data = {};
@@ -75,15 +99,13 @@ Meteor.startup(() => {
         console.log(err);
       return;
       } else {
-        //console.log(res);
+        //console.log(res.result);
         data.master = res.result;
       }
     });
-    //getnetworkinfo
     Meteor.call('get_rcpcoin', 'getmininginfo', function(err, res){
       if(err)
         return;
-      //console.log(res.result.networkhashps);
       data.nethash = res.result.networkhashps;
       if(Settings.find().count() == 0) {
         Settings.insert(data);
@@ -123,15 +145,13 @@ Meteor.startup(() => {
     });
   }
 
-
+  //peerinfo
   peerinfo = function() {
     Meteor.call('get_rcpcoin', 'getpeerinfo', function(err, res){
       if(err) {
         console.log(err);
       return;
       } else {
-        console.log(res);
-        //data.master = res.result;
         var data = {
           peers: res.result
         };
@@ -146,11 +166,9 @@ Meteor.startup(() => {
     });
   };
 
-  peerinfo();
-  //loading();
-  //donwload_block(111);
   Meteor.setInterval(function(){
+    peerinfo();
     infoCoin();
     loading();
-  }, 3000);
+  }, time);
 });

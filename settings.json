@@ -1,7 +1,7 @@
 {
   "public": {
-    "ver": "0.1.1",
-    "rev": "demo",
+    "ver": "0.1.2",
+    "rev": "alpha",
     "name": "BUKAKE",
     "ticker": "BKK",
     "type": "pow",

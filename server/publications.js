@@ -15,8 +15,15 @@ Meteor.publish('transactionvin', function() {
 });
 
 Meteor.publish('blocks', function() {
-  return Blocks.find({}, {limit: 100, sort: {height: -1}});
+  return [
+    Blocks.find({}, {limit: 100, sort: {height: -1}}),
+    Txs.find()
+  ];
 });
+
+Meteor.publish('transaction', function() {
+  return Txs.find();
+})
 
 Meteor.publish('txs', function() {
   return Txs.find({}, {limit: 100, sort: {confirmation: 1}});
@@ -39,3 +46,11 @@ Meteor.publish('peers', function() {
 Meteor.publish('peersAddnode', function() {
   return Peers.find();
 });
+
+Meteor.publish('address', function() {
+  return [Addresses.find(), Txs.find()];
+});
+
+Meteor.publish('sidebarWith', function() {
+  return [Settings.find(), Blocks.find()];
+})

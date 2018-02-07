@@ -1,0 +1,12 @@
+<template name="addressPage">
+  <div class="row">
+    <div class="col-md-12">
+      <h4>Address: {{addres}}</h4>
+    </div>
+    <div class="col-md-12">
+      {{#each address}}
+        {{>tx}}
+      {{/each}}
+    </div>
+  </div>
+</template>
