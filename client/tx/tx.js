@@ -1,7 +1,8 @@
 Template.tx.helpers({
-  transactionvin: function() {
+  transactionout: function() {
     var vout_arr = [];
     var out = this.vout;
+    //console.log('out', out);
     out.forEach(function(obj){
       if(obj.scriptPubKey.type != 'nonstandard' && obj.scriptPubKey.type != 'nulldata') {
         vout_arr.push({
@@ -13,41 +14,40 @@ Template.tx.helpers({
     });
     return vout_arr;
   },
-  transactionvout: function() {
+  transactionvin: function() {
     var vin_arr = [];
     var ins = this.vin;
     var amount = 0;
     var address = '';
+
+    //console.log('this',this);
 
     ins.forEach(function(obj){
       if(obj.coinbase) {
         return;
       } else {
         var out = Txs.findOne({txid: obj.txid}).vout;
-        console.log(out);
-        out.forEach(function(obj){
-          if(obj.scriptPubKey.type != 'nonstandard' && obj.scriptPubKey.type != 'nulldata') {
-            if(obj.value != 0) {
-              address = obj.scriptPubKey.addresses[0];
-              amount = amount + obj.value;
-            }
-          }
+        //console.log(out);
+        out.forEach(function(x){
+          if(x.scriptPubKey.type != 'nonstandard' && x.scriptPubKey.type != 'nulldata') {
+            vin_arr.push({
+              address: x.scriptPubKey.addresses[0],
+              amount: x.value.toFixed(8),
+              n: x.n
+            });
+          };
         });
       }
     });
 
-    if(address) {
+    if(vin_arr) {
       vin_arr.push({
-        address: address,
-        amount: amount.toFixed(8)
+        address: 'Generate',
+        amount: 'Mining'
       });
     } else {
-      vin_arr.push({
-        address: 'New Coin',
-        amount: 'Miner'
-      });
+      console.log('ok');
     }
-
     return vin_arr;
   }
 });

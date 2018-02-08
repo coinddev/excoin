@@ -47,6 +47,10 @@ Meteor.startup(() => {
                       console.log(err);
                     var vin = res.result.vin;
                     var vout = res.result.vout;
+
+                    //console.log('vin', vin);
+                    //console.log('vout', vout);
+
                     var amount = 0;
 
                     vout.forEach(function(obj){
@@ -71,7 +75,7 @@ Meteor.startup(() => {
                         }
                       });
                     });
-                    
+
                     var txData = _.extend(tx, {
                       time: block.time,
                       version: res.result.version,
@@ -82,6 +86,7 @@ Meteor.startup(() => {
                     });
 
                     Txs.insert(txData);
+                    
                   });
                 });
               });
@@ -94,19 +99,22 @@ Meteor.startup(() => {
   //settings
   infoCoin = function() {
     var data = {};
-    Meteor.call('get_rcpcoin_params', 'masternode', 'count', function(err, res){
-      if(err) {
-        console.log(err);
-      return;
-      } else {
-        //console.log(res.result);
-        data.master = res.result;
-      }
-    });
+    if(Meteor.settings.public.masternode) {
+      Meteor.call('get_rcpcoin_params', 'masternode', 'count', function(err, res){
+        if(err) {
+          console.log(err);
+        return;
+        } else {
+          //console.log(res.result);
+          data.master = res.result;
+        }
+      });
+    }
+
     Meteor.call('get_rcpcoin', 'getmininginfo', function(err, res){
       if(err)
         return;
-      data.nethash = res.result.networkhashps;
+      data.nethash = res.result.networkhashps.toFixed(8);
       if(Settings.find().count() == 0) {
         Settings.insert(data);
       } else {
@@ -155,7 +163,6 @@ Meteor.startup(() => {
         var data = {
           peers: res.result
         };
-
         if(Peers.find().count() == 0) {
           Peers.insert(data);
         } else {
@@ -170,5 +177,5 @@ Meteor.startup(() => {
     peerinfo();
     infoCoin();
     loading();
-  }, time);
+  }, time * 1000);
 });

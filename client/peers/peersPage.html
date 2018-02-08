@@ -7,7 +7,6 @@
       <table class="table">
         <thead>
           <tr>
-            <th>ID</th>
             <th>IP</th>
             <th>Core</th>
             <th>Version</th>
@@ -34,12 +33,11 @@
 </template>
 <template name="peersTr">
   <tr>
-    <td>{{id}}</td>
-    <td>{{addrlocal}}</td>
+    <td>{{addr}}</td>
     <td>{{subver}}</td>
     <td>{{version}}</td>
   </tr>
 </template>
 <template name="peersNode">
-addnode={{addrlocal}}
+addnode={{addr}}
 </template>
