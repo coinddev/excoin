@@ -40,14 +40,13 @@ Template.tx.helpers({
       }
     });
 
-    if(vin_arr) {
+    if(vin_arr.length == 0) {
       vin_arr.push({
         address: 'Generate',
         amount: 'Mining'
       });
-    } else {
-      console.log('ok');
     }
+
     return vin_arr;
   }
 });
